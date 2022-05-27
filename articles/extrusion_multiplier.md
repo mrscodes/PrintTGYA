@@ -1,42 +1,10 @@
-[:arrow_left: Back to Table of Contents](/README.md)
-# Extrusion Multiplier
-
-**:warning: You should [:page_facing_up:calibrate your extruder](https://docs.vorondesign.com/build/startup/#extruder-calibration-e-steps) first.**
-
-- Calibrating your extruder ensures that the extrusion multiplier will be the same across all printers. Extruder calibration simply ensures that 100mm requested = 100mm extruded. Extrusion *multiplier* is a per-filament setting, depending on the properties of each material.
-
-**:warning: You should [:page_facing_up:tune pressure advance](/articles/pressure_advance.md) first.**
-
-
-This must be done, at a minimum, per filament brand/type. It may vary by color or by roll, depending how consistent your filament brand of choice is. With KVP I am usually able to run the same EM for all colors.
-
-Some Slicers seem to "like" slightly higher or lower EM than others.
-
 ## Background
 
 Getting the perfect extrusion multiplier (EM) is *crucial* for good looking prints.
 
 **If you want to skip past my rambling, click [:pushpin:here](/articles/extrusion_multiplier.md#method) to go straight to the instructions.**
 
-This is a debated subject, but I will try to explain my rationale.
-### Methods I'm Not a Fan Of
-- #### Measuring Wall Thickness With Calipers
-    - Some guides you will find online mention printing a single or two-walled object and measuring the thickness with calipers.
-        - I simply never have good results with this approach, and different people seem to get (sometimes wildly) different results.
 
-        - The measured widths can vary depending where you measure it and how much pressure you use.
-
-        - Any layer wobble whatsoever (which all printers have, in varying degrees) causes these walls to measure thicker, which can throw things off.
-
-        - This method assumes that you have good calipers, which many people don't. This can simply limit the accessibility.
-- #### SuperSlicer Calibration
-    - SuperSlicer has a built-in flow calibration tool, however I do not like this either, for a few reasons:
-
-        - Because it uses 100% infill, the first layer squish carries through all the way to the top. This causes your first layer squish to impact your results.
-
-        - It has ironing turned on by default, which is an odd choice.
-
-        - The objects are too small. It's normal for [:page_facing_up:smaller infill areas to look a bit more overextruded than larger infill areas.](/articles/troubleshooting/small_infill_areas_overextruded.md)
 
 ### Get your prints as smooth as a baby's bottom, THEN account for dimensions if needed.
 
@@ -53,26 +21,11 @@ This also results in prints that are of perfectly acceptable tolerances for Voro
     - The thread tests screw together nicely, and
 
     - Bearings fit nicely without too much force into the Voron cube (F695 on bottom, 625 on top).
-### If you need true-to-CAD dimensional accuracy for other projects
-- Firstly, *adjust your expectations*. 
-
-    - Remember, our 3D printers are hobby-grade, glorified hot glue guns, not CNC. You will not reliably get 0.01mm tolerances everywhere.
-
-- AFTER tuning extrusion multiplier using my below method:
-
-    - Try your slicer's **shrinkage compensation** settings.
-
-        - In some slicers, this is just re-named/glorified X/Y part scaling*. 
-            - \*Shrinkage occurs much less in the Z axis.
-            - 100.5%-101% X/Y scaling is about the range you would expect with ABS.
-        - Find any suitable test object (larger is generally better), and ensure that you are measuring flat edges and not any corner bulging or seams. Use the resulting measurements to determine how much shrinkage compensation you need.
-    - Don't mess with your X/Y/A/B `steps_per_mm`/`rotation_distance`, you will just further confuse matters. You are almost always seeing material shrinkage, bulging, layer inconsistencies, etc, NOT issues with your axes. 
-        - If dimensions are off by large amounts, you may have the wrong pulleys installed on your motors (for example if you're off by 20%, you probably swapped a 16t pulley with a 20t pulley or vice versa).
 
 ## Method
 The best method I have found is purely visual/tactile.
 
-We will print some 30x30x3mm cubes. *(see the [:page_facing_up:test_prints folder](/test_prints))*
+We will print some 30x30x3mm cubes. 
 
 **Print Settings:**
 - **Infill:** 40%+
@@ -81,7 +34,6 @@ We will print some 30x30x3mm cubes. *(see the [:page_facing_up:test_prints folde
 
     - To adequately support the top layers so they don't sag.
 
-- **Top Layer [:page_facing_up:Line Width](/articles/a_note_about_line_width.md):** 100%
 
    - **SS/PS:** ctrl+f, search: `top_infill_extrusion_width`
 
@@ -175,19 +127,7 @@ We will print some 30x30x3mm cubes. *(see the [:page_facing_up:test_prints folde
         7) Save the project for reuse later.\
         ![](/images/EM-Save.png)
         
-    - **Cura:**
-
-        1) Import the STL. Select it, and then and enable the per-object "flow" setting for it.\
-        ![](/images/EM-PerObject-Cura.png)
-
-        2) Right-click the cube and select "multiply selected". Enter your desired number of test cubes in the prompt.\
-        ![](/images/EM-Instances-Cura.png)
-
-        3) Click on each cube and set the EM on each. The setting should already be exposed on each object since we multiplied it.\
-        ![](/images/EM-SetFlow-Cura.png)
-
-        4) Save the project for reuse later.\
-        ![](/images/EM-Save-Cura.png)
+   
 
 **2)** Print it!
 
